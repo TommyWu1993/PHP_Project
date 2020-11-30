@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stage I</title>
+    <style>
+        .mytable {
+            border: 1px solid #A6C1E4;
+            font-family: Arial;
+            border-collapse: collapse;
+        }
+
+        table th {
+            border:1px solid black;
+            background-color:#71c1fb;
+            width:100px;
+            height:20px;
+            font-size:15px;
+        }
+
+        table td {
+            border:1px solid #A6C1E4;
+
+            text-align:center;
+
+            height:15px;
+
+            padding-top:5px;
+
+            /*font-size:12px;*/
+        }
+
+        th, td, p, input {
+            font: 14px Verdana;
+        }
+
+        table, th, td {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        fieldset {
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        fieldset fieldset{
+
+            background-color: #FFEFD5;
+        }
+
+        label {
+            text-align: left;
+            display: inline-block;
+            width: 95px;
+        }
+
+        button {
+            padding: 8px;
+            margin: 6px 0 0 6px;
+            border-radius: 4px;
+            box-shadow: 2px 2px 2px #333333;
+            margin-bottom: 4px;
+            font-size: 1.0em;
+            width: 42px;
+        }
+
+        .field {
+            width: 12.0em;
+            font-size: 1.0em;
+        }
+
+        .button {
+            background-color: #d9f57f;
+            padding: 8px;
+            margin: 6px 0 0 6px;
+            border-radius: 4px;
+            box-shadow: 2px 2px 2px #333333;
+            margin-bottom: 4px;
+            font-size: 19px;
+            width: 120px;
+        }
+
+        .button:hover {
+            background-color: #03fcd7;
+        }
+    </style>
+</head>
+<body>
+<?php
+    error_reporting(0);
+    $dbhost = 'localhost:3306';
+    $dbuser = 'root';
+    $dbpass = '';
+    $conn = mysqli_connect($dbhost, $dbuser, $dbpass);
+    if(! $conn )
+    {
+        die('mysqli_error: ' . mysqli_error($conn));
+    }
+    mysqli_query($conn , "set names utf8");
+    $sql = 'select * from socks ';
+    $where = '';
+    if($_GET['Brand'] || $_GET['Colour'] || $_GET['Size'] || $_GET['Min'] || $_GET['Max']){
+
+        $where .= 'where';
+        $Min = $_GET['Min'];
+        $Max = $_GET['Max'];
+        unset($_GET['Min'],$_GET['Max']);
+        $i = 0;
+        if($Min != ''){
+
+            $where .= " Price >= '{$Min}' and";
+
+        }
+
+        if($Max != ''){
+
+            $where .= " Price <= '{$Max}' and";
+
+        }
+        foreach ($_GET as $k=>$v){
+            $i++;
+            $where .= '(';
+            foreach ($v as $value){
+
+                $where .= " `{$k}`='{$value}'";
+                if(end($v) != $value){
+
+                    $where .= ' or';
+                }
+            }
+            $where .= ')';
+            if($i >= 1) $where .= 'and';
+
+        }
+        $where = substr($where,0,strlen($where)-3);
+
+    }
+    if($where != '') $sql .= $where;
+    mysqli_select_db( $conn, 'socks' );
+    $retval = mysqli_query( $conn, $sql );
+    if(!$retval)
+    {
+        die('mysqli_error: ' . mysqli_error($conn));
+    }
+    echo '<table id="empTable" style="float: left;margin-left: 380px" class="mytable"><caption style="font-size: 30px;margin-bottom: 10px">Sock World</caption>
+    <tr><th>ItemID</th><th>Brand</th><th>Colour</th><th>Size</th><th>Price</th><th>Stock</th></tr>';
+    while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))
+    {
+        echo "<tr><td> {$row['ItemID']}</td> ".
+            "<td>{$row['Brand']} </td> ".
+            "<td>{$row['Colour']} </td> ".
+            "<td>{$row['Size']} </td> ".
+            "<td>{$row['Price']} </td> ".
+            "<td>{$row['Stock']} </td> ".
+            "</tr>";
+    }
+    echo '</table>';
+//    mysqli_close($conn);
+?>
+<div  style="float: left;position: fixed">
+    <a style="font-size: 20px;color: #ff2222" href="">Home</a>
+    <a style="font-size: 20px; margin-left: 40px;color: #000" href="Admin.php">Admin</a>
+    <fieldset style="margin-top: 10px">
+        <legend>User Page</legend>
+        <form action="" method="get">
+            <fieldset>
+                    <legend>Brand</legend>
+
+                    <?php
+                        if($where != ''){
+                            $where = substr($where,5);
+                        }
+                        $sql = "select Brand,";
+                        if($where != ''){
+
+                            $sql .= "COUNT(CASE WHEN {$where} THEN 1 ELSE NULL END) as count";
+
+                        }else{
+
+                            $sql .= "count(1) as count";
+                        }
+                        $sql .= " from socks  group by Brand";
+                        $retval = mysqli_query( $conn, $sql );
+                        if(!$retval)
+                        {
+                            die('mysqli_error: ' . mysqli_error($conn));
+                        }
+                        while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))
+                        {
+                            if(is_array($_GET["Brand"]) && in_array($row['Brand'],$_GET["Brand"])){
+                                $checked = 'checked=checked';
+
+                            }else{
+                                $checked = '';
+                            }
+
+                           echo "<input type='checkbox' id='{$row['Brand']}' name = Brand[]  value='{$row['Brand']}' {$checked}/>({$row['count']})
+                                 <label for='{$row['Brand']}'>{$row['Brand']}</label><br>";
+                        }
+
+                    ?>
+            </fieldset>
+
+            <fieldset>
+                    <legend>Colour</legend>
+                    <?php
+
+                    $sql = "select Colour,";
+                    if ($where != '') {
+
+                        $sql .= "COUNT(CASE WHEN {$where} THEN 1 ELSE NULL END) as count";
+
+                    } else {
+
+                        $sql .= "count(1) as count";
+                    }
+                    $sql .= " from socks  group by Colour";
+                    $retval = mysqli_query($conn, $sql);
+                    if(!$retval)
+                    {
+                        die('mysqli_error: ' . mysqli_error($conn));
+                    }
+                    while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))
+                    {
+                        if(is_array($_GET["Colour"]) && in_array($row['Colour'],$_GET["Colour"])){
+
+                            $checked = 'checked=checked';
+
+                        }else{
+                            $checked = '';
+                        }
+
+                        echo "<input type='checkbox' id='{$row['Colour']}' name = Colour[]  value='{$row['Colour']}' {$checked}/>({$row['count']})
+                                 <label for='{$row['Colour']}'>{$row['Colour']}</label><br>";
+                    }
+
+                    ?>
+
+            </fieldset>
+
+            <fieldset>
+                    <legend>Size</legend>
+                    <?php
+
+                        $sql = "select Size,";
+                        if ($where != '') {
+
+                            $sql .= "COUNT(CASE WHEN {$where} THEN 1 ELSE NULL END) as count";
+
+                        } else {
+
+                            $sql .= "count(1) as count";
+                        }
+                        $sql .= " from socks  group by Size";
+                        $retval = mysqli_query( $conn, $sql );
+                        if(!$retval)
+                        {
+                            die('mysqli_error: ' . mysqli_error($conn));
+                        }
+                        while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))
+                        {
+                            if(is_array($_GET["Size"]) && in_array($row['Size'],$_GET["Size"])){
+
+                                $checked = 'checked=checked';
+
+                            }else{
+                                $checked = '';
+                            }
+
+                            echo "<input type='checkbox' id='{$row['Size']}' name = Size[]  value='{$row['Size']}' {$checked}/>({$row['count']})
+                                     <label for='{$row['Size']}'>{$row['Size']}</label><br>";
+                        }
+
+                    ?>
+            </fieldset>
+            <fieldset>
+                <legend>Price Range</legend>
+                    <label for="minPrice">From:</label>
+                    <input type="text" id="minPrice" name="Min" placeholder="Min"  value="<?php echo $Min?>"/><br>
+
+                    <label for="maxPrice">To:</label>
+                    <input type="text" id="maxPrice" name="Max" placeholder="Max"  value="<?php echo $Max?>"/>
+           </fieldset>
+            <input type="submit" id="colourFilter"  value="Confirm"/>
+            <input type="button" id="clears" onclick="myFunction()" value="Clear All"/>
+        </form>
+    </fieldset>
+</div>
+<p id="brand"></p>
+<p id="colour"></p>
+<p id="size"></p>
+<script>
+    function myFunction(){
+
+        var href = "<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];?>";
+        location.href = href;
+
+    }
+</script>
+</body>
+<?php
+    foreach ($_POST as $key=>$value){
+
+        if($value == ''){
+
+            echo "<script>alert('{$key} value is empty')</script>";
+            exit();
+        }
+
+    }
+    if($_POST['type']){
+
+        switch ($_POST['type']){
+
+            case 'add':
+                $sql = "insert into socks (`ItemID`, `Brand`, `Colour`, `Size`, `Price`, `Stock`) values ('{$_POST['ItemID']}','{$_POST['brand']}','{$_POST['colour']}','{$_POST['size']}','{$_POST['price']}','{$_POST['stock']}')";
+                $res = mysqli_query( $conn, $sql );
+                if(!$res)
+                {
+                    die('mysqli_error: ' . mysqli_error($conn));
+                }
+                break;
+
+            case 'update':
+
+                existItemID($conn);
+
+                $sql = "update  socks set `ItemID`='{$_POST['ItemID']}', `Brand`='{$_POST['brand']}', `Colour`='{$_POST['colour']}', `Size`='{$_POST['size']}', `Price`='{$_POST['price']}', `Stock`='{$_POST['stock']}' where ItemID='{$_POST['ItemID']}'";
+                $retval = mysqli_query( $conn, $sql );
+                if(!$retval)
+                {
+                    die('mysqli_error: ' . mysqli_error($conn));
+                }
+                break;
+
+            case 'delete':
+
+                existItemID($conn);
+
+                $sql = "delete from socks where  `ItemID`='{$_POST['ItemID']}'";
+                $retval = mysqli_query( $conn, $sql );
+                if(!$retval)
+                {
+                    die('mysqli_error: ' . mysqli_error($conn));
+                }
+                break;
+
+        }
+
+        echo "<script>alert('{$_POST['type']} operation succeeded')</script>";
+        echo "<script language=\"javascript\">location.href=location.href;</script>";
+        exit();
+    }
+
+    function existItemID($conn){
+
+        $sql = "select count(1) as count from socks where `ItemID`='{$_POST['ItemID']}'";
+        $retval = mysqli_query( $conn, $sql );
+        if(!$retval)
+        {
+            die('mysqli_error: ' . mysqli_error($conn));
+        }
+        $socks = mysqli_fetch_array($retval,MYSQLI_ASSOC);
+        if($socks['count'] < 1){
+
+            echo "<script>alert('Please input correct ItemID')</script>";
+            echo "<script language=\"javascript\">location.href=location.href;</script>";
+            exit();
+        }
+    }
+?>
+</html>
