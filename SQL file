@@ -1,0 +1,150 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : 本地
+ Source Server Type    : MySQL
+ Source Server Version : 50726
+ Source Host           : localhost:3306
+ Source Schema         : socks
+
+ Target Server Type    : MySQL
+ Target Server Version : 50726
+ File Encoding         : 65001
+
+ Date: 20/05/2020 22:44:05
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for socks
+-- ----------------------------
+DROP TABLE IF EXISTS `socks`;
+CREATE TABLE `socks`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ItemID` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Brand` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Colour` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Size` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Price` decimal(10, 2) NULL DEFAULT NULL,
+  `Stock` int(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of socks
+-- ----------------------------
+INSERT INTO `socks` VALUES (1, 'HM001', 'H&M', 'Yellow', 'M', 8.00, 120);
+INSERT INTO `socks` VALUES (2, 'HM002', 'H&M', 'White', 'S', 6.00, 170);
+INSERT INTO `socks` VALUES (3, 'HM004', 'H&M', 'Black', 'L', 7.00, 160);
+INSERT INTO `socks` VALUES (4, 'HM004', 'H&M', 'Black', 'M', 7.00, 200);
+INSERT INTO `socks` VALUES (5, 'HM005', 'H&M', 'White', 'L', 8.00, 180);
+
+INSERT INTO `socks` VALUES (6, 'NIKE01', 'NIKE', 'Navy', 'L', 12.00, 190);
+INSERT INTO `socks` VALUES (7, 'NIKE02', 'NIKE', 'White', 'S', 14.00, 110);
+INSERT INTO `socks` VALUES (8, 'NIKE03', 'NIKE', 'Navy', 'L', 14.00, 190);
+INSERT INTO `socks` VALUES (9, 'NIKE04', 'NIKE', 'White', 'S', 13.00, 220);
+INSERT INTO `socks` VALUES (10, 'NIKE05', 'NIKE', 'Yellow', 'M', 19.00, 230);
+
+INSERT INTO `socks` VALUES (11, 'PUMA01', 'PUMA', 'Navy', 'S', 11.00, 250);
+INSERT INTO `socks` VALUES (12, 'PUMA02', 'PUMA', 'White', 'L', 13.00, 210);
+INSERT INTO `socks` VALUES (13, 'PUMA03', 'PUMA', 'Black', 'M', 9.00, 290);
+INSERT INTO `socks` VALUES (14, 'PUMA04', 'PUMA', 'White', 'S', 13.00, 270);
+INSERT INTO `socks` VALUES (15, 'PUMA05', 'PUMA', 'Navy', 'M', 11.00, 240);
+
+INSERT INTO `socks` VALUES (16, 'FILA01', 'FILA', 'Yellow', 'M', 19.00, 230);
+INSERT INTO `socks` VALUES (17, 'FILA02', 'FILA', 'Navy', 'M', 9.00, 250);
+INSERT INTO `socks` VALUES (18, 'FILA03', 'FILA', 'White', 'L', 8.00, 80);
+INSERT INTO `socks` VALUES (19, 'FILA04', 'FILA', 'Black', 'L', 9.00, 290);
+INSERT INTO `socks` VALUES (20, 'FILA05', 'FILA', 'White', 'S', 13.00, 45);
+INSERT INTO `socks` VALUES (21, 'FILA06', 'FILA', 'Navy', 'M', 14.00, 35);
+INSERT INTO `socks` VALUES (22, 'FILA07', 'FILA', 'Yellow', 'S', 15.00, 20);
+
+INSERT INTO `socks` VALUES (23, 'ZARA01', 'ZARA', 'Navy', 'S', 2.00, 50);
+INSERT INTO `socks` VALUES (24, 'ZARA02', 'ZARA', 'White', 'L', 3.00, 60);
+INSERT INTO `socks` VALUES (25, 'ZARA03', 'ZARA', 'Black', 'M', 19.00, 70);
+INSERT INTO `socks` VALUES (26, 'ZARA04', 'ZARA', 'White', 'S', 13.00, 270);
+INSERT INTO `socks` VALUES (27, 'ZARA05', 'ZARA', 'Navy', 'L', 12.00, 100);
+INSERT INTO `socks` VALUES (28, 'ZARA06', 'ZARA', 'Black', 'M', 9.00, 90);
+INSERT INTO `socks` VALUES (29, 'ZARA07', 'ZARA', 'White', 'S', 4.00, 270);
+INSERT INTO `socks` VALUES (30, 'ZARA08', 'ZARA', 'Navy', 'M', 11.00, 240);
+
+INSERT INTO `socks` VALUES (31, 'ANTA01', 'ANTA', 'Navy', 'M', 2.00, 24);
+INSERT INTO `socks` VALUES (32, 'ANTA02', 'ANTA', 'White', 'L', 2.00, 34);
+INSERT INTO `socks` VALUES (33, 'ANTA03', 'ANTA', 'Black', 'M', 3.00, 15);
+INSERT INTO `socks` VALUES (34, 'ANTA04', 'ANTA', 'Navy', 'L', 4.00, 68);
+INSERT INTO `socks` VALUES (35, 'ANTA05', 'ANTA', 'Yellow', 'S', 5.00, 90);
+INSERT INTO `socks` VALUES (36, 'ANTA06', 'ANTA', 'Navy', 'S', 6.00, 245);
+INSERT INTO `socks` VALUES (37, 'ANTA07', 'ANTA', 'Black', 'M', 4.00, 135);
+INSERT INTO `socks` VALUES (38, 'ANTA08', 'ANTA', 'Navy', 'S', 8.00, 125);
+INSERT INTO `socks` VALUES (39, 'ANTA09', 'ANTA', 'Yellow', 'M', 4.00, 50);
+
+INSERT INTO `socks` VALUES (40, 'VANS01', 'VANS', 'White', 'S', 11.00, 66);
+INSERT INTO `socks` VALUES (41, 'VANS02', 'VANS', 'Black', 'M', 12.00, 88);
+INSERT INTO `socks` VALUES (42, 'VANS03', 'VANS', 'Navy', 'S', 13.00, 77);
+INSERT INTO `socks` VALUES (43, 'VANS04', 'VANS', 'Navy', 'M', 13.00, 120);
+INSERT INTO `socks` VALUES (44, 'VANS05', 'VANS', 'Yellow', 'L', 12.00, 200);
+INSERT INTO `socks` VALUES (45, 'VANS06', 'VANS', 'Navy', 'L', 16.00, 130);
+INSERT INTO `socks` VALUES (46, 'VANS07', 'VANS', 'Yellow', 'L', 18.00, 10);
+INSERT INTO `socks` VALUES (47, 'VANS08', 'VANS', 'Black', 'M', 18.00, 290);
+
+INSERT INTO `socks` VALUES (48, 'KAPPA01', 'KAPPA', 'White', 'S', 12.00, 43);
+INSERT INTO `socks` VALUES (49, 'KAPPA02', 'KAPPA', 'Black', 'L', 8.00, 53);
+INSERT INTO `socks` VALUES (50, 'KAPPA03', 'KAPPA', 'Yellow', 'M', 7.00, 63);
+INSERT INTO `socks` VALUES (51, 'KAPPA04', 'KAPPA', 'Navy', 'S', 8.00, 67);
+INSERT INTO `socks` VALUES (52, 'KAPPA05', 'KAPPA', 'White', 'M', 7.00, 79);
+INSERT INTO `socks` VALUES (53, 'KAPPA06', 'KAPPA', 'Navy', 'L', 6.00, 70);
+INSERT INTO `socks` VALUES (54, 'KAPPA07', 'KAPPA', 'Yellow', 'M', 9.00, 131);
+INSERT INTO `socks` VALUES (55, 'KAPPA08', 'KAPPA', 'White', 'S', 16.00, 154);
+INSERT INTO `socks` VALUES (56, 'KAPPA09', 'KAPPA', 'Navy', 'L', 10.00, 144);
+
+INSERT INTO `socks` VALUES (57, 'UMBRO01', 'UMBRO', 'White', 'M', 10.00, 119);
+INSERT INTO `socks` VALUES (58, 'UMBRO02', 'UMBRO', 'Navy', 'S', 18.00, 75);
+INSERT INTO `socks` VALUES (59, 'UMBRO03', 'UMBRO', 'White', 'M', 17.00, 74);
+INSERT INTO `socks` VALUES (60, 'UMBRO04', 'UMBRO', 'Black', 'S', 14.00, 86);
+INSERT INTO `socks` VALUES (61, 'UMBRO05', 'UMBRO', 'Yellow', 'M', 4.00, 83);
+INSERT INTO `socks` VALUES (62, 'UMBRO06', 'UMBRO', 'Navy', 'S', 5.00, 94);
+INSERT INTO `socks` VALUES (63, 'UMBRO07', 'UMBRO', 'White', 'M', 4.00, 98);
+INSERT INTO `socks` VALUES (64, 'UMBRO08', 'UMBRO', 'Black', 'L', 9.00, 65);
+INSERT INTO `socks` VALUES (65, 'UMBRO09', 'UMBRO', 'Navy', 'M', 8.00, 76);
+
+INSERT INTO `socks` VALUES (66, 'LOTTO01', 'LOTTO', 'Yellow', 'L', 11.00, 175);
+INSERT INTO `socks` VALUES (67, 'LOTTO02', 'LOTTO', 'Black', 'M', 8.00, 153);
+INSERT INTO `socks` VALUES (68, 'LOTTO03', 'LOTTO', 'White', 'L', 8.00, 143);
+INSERT INTO `socks` VALUES (69, 'LOTTO04', 'LOTTO', 'Navy', 'S', 9.00, 133);
+INSERT INTO `socks` VALUES (70, 'LOTTO05', 'LOTTO', 'Yellow', 'M', 9.00, 128);
+INSERT INTO `socks` VALUES (71, 'LOTTO06', 'LOTTO', 'Navy', 'M', 5.00, 126);
+INSERT INTO `socks` VALUES (72, 'LOTTO07', 'LOTTO', 'White', 'S', 6.00, 214);
+INSERT INTO `socks` VALUES (73, 'LOTTO08', 'LOTTO', 'Navy', 'S', 17.00, 241);
+
+INSERT INTO `socks` VALUES (74, 'UNIQLO01', 'UNIQLO', 'Black', 'S', 12.00, 56);
+INSERT INTO `socks` VALUES (75, 'UNIQLO02', 'UNIQLO', 'Black', 'S', 9.00, 59);
+INSERT INTO `socks` VALUES (76, 'UNIQLO03', 'UNIQLO', 'Black', 'M', 7.00, 60);
+INSERT INTO `socks` VALUES (77, 'UNIQLO04', 'UNIQLO', 'White', 'M', 5.00, 69);
+INSERT INTO `socks` VALUES (78, 'UNIQLO05', 'UNIQLO', 'White', 'M', 12.00, 96);
+INSERT INTO `socks` VALUES (79, 'UNIQLO06', 'UNIQLO', 'Navy', 'L', 11.00, 46);
+INSERT INTO `socks` VALUES (80, 'UNIQLO07', 'UNIQLO', 'Yellow', 'L', 7.00, 41);
+INSERT INTO `socks` VALUES (81, 'UNIQLO08', 'UNIQLO', 'White', 'L', 11.00, 243);
+INSERT INTO `socks` VALUES (82, 'UNIQLO09', 'UNIQLO', 'Navy', 'M', 8.00, 247);
+
+INSERT INTO `socks` VALUES (83, 'ACICS01', 'ACICS', 'Navy', 'S', 11.00, 211);
+INSERT INTO `socks` VALUES (84, 'ACICS02', 'ACICS', 'White', 'S', 8.00, 222);
+INSERT INTO `socks` VALUES (85, 'ACICS03', 'ACICS', 'Black', 'S', 5.00, 221);
+INSERT INTO `socks` VALUES (86, 'ACICS04', 'ACICS', 'White', 'L', 6.00, 201);
+INSERT INTO `socks` VALUES (87, 'ACICS05', 'ACICS', 'Navy', 'M', 8.00, 208);
+INSERT INTO `socks` VALUES (88, 'ACICS06', 'ACICS', 'White', 'M', 9.00, 15);
+INSERT INTO `socks` VALUES (89, 'ACICS07', 'ACICS', 'Navy', 'L', 12.00, 26);
+INSERT INTO `socks` VALUES (90, 'ACICS08', 'ACICS', 'Black', 'M', 15.00, 28);
+INSERT INTO `socks` VALUES (91, 'ACICS09', 'ACICS', 'White', 'M', 17.00, 24);
+
+INSERT INTO `socks` VALUES (92, 'XTEP01', 'XTEP', 'Navy', 'S', 7.00, 28);
+INSERT INTO `socks` VALUES (93, 'XTEP02', 'XTEP', 'Navy', 'M', 11.00, 58);
+INSERT INTO `socks` VALUES (94, 'XTEP03', 'XTEP', 'Black', 'S', 12.00, 38);
+INSERT INTO `socks` VALUES (95, 'XTEP04', 'XTEP', 'Navy', 'M', 13.00, 217);
+INSERT INTO `socks` VALUES (96, 'XTEP05', 'XTEP', 'White', 'L', 11.00, 29);
+INSERT INTO `socks` VALUES (97, 'XTEP06', 'XTEP', 'Navy', 'L', 15.00, 82);
+INSERT INTO `socks` VALUES (98, 'XTEP07', 'XTEP', 'Yellow', 'M', 7.00, 92);
+INSERT INTO `socks` VALUES (99, 'XTEP08', 'XTEP', 'Black', 'S', 11.00, 78);
+INSERT INTO `socks` VALUES (100, 'XTEP09', 'XTEP', 'White', 'M', 3.00, 25);
+SET FOREIGN_KEY_CHECKS = 1;
